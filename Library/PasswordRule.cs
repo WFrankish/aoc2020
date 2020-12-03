@@ -21,5 +21,13 @@ namespace Library
 
             return count >= Min && count <= Max;
         }
+
+        public bool MatchAlternate(string password)
+        {
+            var match1 = password[Min-1] == Character;
+            var match2 = password[Max-1] == Character;
+
+            return match1 ^ match2;
+        }
     }
 }
