@@ -12,6 +12,11 @@ namespace Library
             _trees = map.Select(c => c == '#').ToArray();
         }
 
+        public void Print(Action<string> writeLine)
+        {
+            writeLine(string.Join("", _trees.Select((b, i) => b ? '#' : '.')));
+        }
+
         public bool IsTree(int x, Action<string> writeLine)
         {
             var index = x % _trees.Length;
