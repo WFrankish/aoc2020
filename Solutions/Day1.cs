@@ -33,5 +33,25 @@ namespace Solutions
 
             return result;
         }
+
+        public int PuzzleB()
+        {
+            var file = InputHelper.Open(1);
+
+            var numbers = file
+                .Select(str => str.Trim())
+                .Select(int.Parse);
+
+            var pairs = numbers
+                .AsEnumerated()
+                .AllUniqueTriplets();
+
+            var match = pairs
+                .First(p => p.Item1 + p.Item2 + p.Item3 == 2020);
+
+            var result = match.Item1 * match.Item2 * match.Item3;
+
+            return result;
+        }
     }
 }

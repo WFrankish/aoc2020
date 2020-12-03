@@ -20,7 +20,20 @@ namespace Library
         /// </summary>
         public static IEnumerable<(T, T)> AllUniquePairs<T>(this IReadOnlyCollection<T> source)
         {
-            return source.SelectMany((a, i) => source.Skip(i+1).Select(b => (a, b)));
+            return source.SelectMany((a, i) => source.Skip(i + 1).Select(b => (a, b)));
+        }
+
+        /// <summary>
+        /// Given a collection of items, return every unique 3-tuple of items.
+        /// E.g. for [a, b, c, d], return [(a,b,c), (a,b,d), (a,c,d) ... ].
+        /// </summary>
+        public static IEnumerable<(T, T, T)> AllUniqueTriplets<T>(this IReadOnlyCollection<T> source)
+        {
+            return source.SelectMany((a, i) => source.Skip(i + 1)
+                .SelectMany((b, j) => source.Skip(i + j + 2)
+                    .Select(c => (a, b, c))
+                )
+            );
         }
     }
 }
