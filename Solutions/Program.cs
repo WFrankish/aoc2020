@@ -4,9 +4,11 @@ namespace Solutions
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] _)
         {
-            Console.WriteLine("Hello World!");
+            var puzzle = new Day1(Console.WriteLine);
+
+            Console.WriteLine(puzzle.PuzzleA());
         }
     }
 }
