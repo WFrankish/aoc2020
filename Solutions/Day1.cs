@@ -5,20 +5,15 @@ using System.Linq;
 
 namespace Solutions
 {
-    public class Day1
+    public class Day1 : Day
     {
-        private readonly Action<string> _writeLine;
-
-        public Day1(Action<string> writeLine)
+        public Day1(Action<string> writeLine) : base(writeLine, InputHelper.Open(1))
         {
-            _writeLine = writeLine;
         }
 
         public int PuzzleA()
         {
-            var file = InputHelper.Open(1);
-
-            var numbers = file
+            var numbers = InputLines
                 .Select(str => str.Trim())
                 .Select(int.Parse);
 
@@ -36,9 +31,7 @@ namespace Solutions
 
         public int PuzzleB()
         {
-            var file = InputHelper.Open(1);
-
-            var numbers = file
+            var numbers = InputLines
                 .Select(str => str.Trim())
                 .Select(int.Parse);
 
