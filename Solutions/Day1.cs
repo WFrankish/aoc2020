@@ -35,11 +35,11 @@ namespace Solutions
                 .Select(str => str.Trim())
                 .Select(int.Parse);
 
-            var pairs = numbers
+            var triplets = numbers
                 .AsEnumerated()
                 .AllUniqueTriplets();
 
-            var match = pairs
+            var match = triplets
                 .First(p => p.Item1 + p.Item2 + p.Item3 == 2020);
 
             var result = match.Item1 * match.Item2 * match.Item3;
