@@ -8,7 +8,7 @@ namespace Solutions
         {
             var puzzle = new Day6(Console.WriteLine);
 
-            Console.WriteLine(puzzle.PuzzleA());
+            Console.WriteLine(puzzle.PuzzleB());
         }
     }
 }

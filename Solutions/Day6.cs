@@ -22,5 +22,17 @@ namespace Solutions
                 )
                 .Sum();
         }
+
+        public int PuzzleB()
+        {
+            return InputLines
+                .Split(string.IsNullOrEmpty)
+                .Select(lines => lines
+                    .Select(line => line.Cast<char>())
+                    .Aggregate((l1, l2) => l1.Intersect(l2))
+                    .Count()
+                )
+                .Sum();
+        }
     }
 }
