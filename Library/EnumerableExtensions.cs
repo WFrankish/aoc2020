@@ -38,7 +38,8 @@ namespace Library
         }
 
         /// <summary>
-        /// Split a collection of items into subcollections
+        /// Split a collection of items into subcollections.
+        /// Items matching <paramref name="isDivider"/> will be excluded.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
@@ -70,6 +71,36 @@ namespace Library
             {
                 yield return result;
             }
+        }
+
+        /// <summary>
+        /// Split a collection of items into subcollections
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="shouldSeperate"></param>
+        /// <returns></returns>
+        public static IEnumerable<IReadOnlyCollection<T>> Split<T>(
+            this IReadOnlyList<T> source,
+            Func<T, T, bool> shouldSeperate
+        )
+        {
+            var result = new List<T> { source[0] };
+            for (int i = 0; i + 1 < source.Count; i++)
+            {
+                var lower = source[i];
+                var upper = source[i + 1];
+
+                if (shouldSeperate(lower, upper))
+                {
+                    yield return result;
+                    result = new List<T>();
+                }
+
+                result.Add(upper);
+            }
+
+            yield return result;
         }
     }
 }
