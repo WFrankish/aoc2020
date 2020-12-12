@@ -33,6 +33,9 @@
 		<None Update="day09.txt">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="day10.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>
