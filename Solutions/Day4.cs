@@ -19,6 +19,13 @@ namespace Solutions
             return passports.Count(p => p.IsValid());
         }
 
+        public int PuzzleB()
+        {
+            var passports = GetPassports();
+
+            return passports.Count(p => p.IsReallyValid());
+        }
+
         private IEnumerable<Passport> GetPassports()
         {
             return InputLines
