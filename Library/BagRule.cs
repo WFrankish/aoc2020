@@ -32,5 +32,10 @@ namespace Library
         {
             return _dict.TryGetValue(bagType, out int value) ? value : 0;
         }
+
+        public IEnumerable<KeyValuePair<string, int>> GetContents()
+        {
+            return _dict.Select(kvp => kvp);
+        }
     }
 }

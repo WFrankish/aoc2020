@@ -42,5 +42,32 @@ namespace Solutions
 
             return foundBags.Count;
         }
+
+        public int PuzzleB()
+        {
+            var rules = InputLines
+                .Select(line => new BagRule(line))
+                .ToDictionary(r => r.Title);
+
+            var bags = new Stack<(int number, string bag)>();
+            bags.Push((1, "shiny gold"));
+
+            int result = 0;
+            while (bags.Any())
+            {
+                var (number, bag) = bags.Pop();
+                var rule = rules[bag];
+
+                foreach (var kvp in rule.GetContents())
+                {
+                    var newBag = kvp.Key;
+                    var count = number * kvp.Value;
+                    result += count;
+                    bags.Push((count, newBag));
+                }
+            }
+
+            return result;
+        }
     }
 }
