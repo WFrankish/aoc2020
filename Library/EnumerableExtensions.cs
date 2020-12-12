@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Library
@@ -34,6 +35,41 @@ namespace Library
                     .Select(c => (a, b, c))
                 )
             );
+        }
+
+        /// <summary>
+        /// Split a collection of items into subcollections
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="isDivider"></param>
+        /// <returns></returns>
+        public static IEnumerable<IReadOnlyCollection<T>> Split<T>(
+            this IEnumerable<T> source,
+            Func<T, bool> isDivider
+        )
+        {
+            var result = new List<T>();
+            foreach (var obj in source)
+            {
+                if (isDivider(obj))
+                {
+                    if (result.Any())
+                    {
+                        yield return result;
+                        result = new List<T>();
+                    }
+                }
+                else
+                {
+                    result.Add(obj);
+                }
+            }
+
+            if (result.Any())
+            {
+                yield return result;
+            }
         }
     }
 }
