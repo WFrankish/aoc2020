@@ -23,5 +23,11 @@ namespace Library
                 Value = -Value;
             }
         }
+
+        public CodeLine(string command, int value)
+        {
+            Command = command;
+            Value = value;
+        }
     }
 }

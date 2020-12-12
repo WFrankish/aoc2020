@@ -14,32 +14,66 @@ namespace Solutions
 
         public int PuzzleA()
         {
-            var lines = InputLines
+            var codeLines = InputLines
                 .Select(line => new CodeLine(line))
                 .ToArray();
 
+            TryRunProgram(codeLines, out int result);
+
+            return result;
+        }
+
+        public int PuzzleB()
+        {
+            var codeLines = InputLines
+                .Select(line => new CodeLine(line))
+                .ToArray();
+
+            var alternatives = codeLines
+                .Where(line => line.Command != "acc")
+                .Select(line => codeLines.Select(l => l == line
+                        ? new CodeLine(l.Command == "nop" ? "jmp" : "nop", l.Value)
+                        : l
+                    )
+                    .ToArray()
+                );
+
+            foreach(var alternative in alternatives)
+            {
+                if(TryRunProgram(alternative, out int result))
+                {
+                    return result;
+                }
+            }
+
+            throw new Exception("No alternatives were valid");
+        }
+
+        private bool TryRunProgram(IReadOnlyList<CodeLine> codeLines, out int accumator)
+        {
             var visitedLines = new HashSet<int>();
 
             var index = 0;
-            var result = 0;
-            while (true)
+            accumator = 0;
+            while (index < codeLines.Count)
             {
                 if (visitedLines.Contains(index))
                 {
-                    break;
-                } else
+                    return false;
+                }
+                else
                 {
                     visitedLines.Add(index);
                 }
 
-                var codeLine = lines[index];
+                var codeLine = codeLines[index];
                 switch (codeLine.Command)
                 {
                     case "nop":
                         index++;
                         break;
                     case "acc":
-                        result += codeLine.Value;
+                        accumator += codeLine.Value;
                         index++;
                         break;
                     case "jmp":
@@ -48,7 +82,7 @@ namespace Solutions
                 }
             }
 
-            return result;
+            return true;
         }
     }
 }
