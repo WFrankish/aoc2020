@@ -6,9 +6,9 @@ namespace Solutions
     {
         static void Main(string[] _)
         {
-            var puzzle = new Day8(Console.WriteLine);
+            var puzzle = new Day9(Console.WriteLine);
 
-            Console.WriteLine(puzzle.PuzzleB());
+            Console.WriteLine(puzzle.PuzzleA());
         }
     }
 }
