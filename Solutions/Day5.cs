@@ -20,6 +20,42 @@ namespace Solutions
                 .Max();
         }
 
+        public int PuzzleB()
+        {
+            var seatSet = new HashSet<int>();
+
+            int max = GetSeatId("BBBBBBBRRR");
+            for(int i = 0; i <= max; i++)
+            {
+                seatSet.Add(i);
+            }
+
+            foreach(var seatId in InputLines.Select(GetSeatId))
+            {
+                seatSet.Remove(seatId);
+            }
+
+            foreach (var seatId in seatSet.ToArray())
+            {
+                seatSet.Remove(seatId);
+                if (!seatSet.Contains(seatId + 1))
+                {
+                    break;
+                }
+            }
+
+            foreach (var seatId in seatSet.Reverse().ToArray())
+            {
+                seatSet.Remove(seatId);
+                if (!seatSet.Contains(seatId - 1))
+                {
+                    break;
+                }
+            }
+
+            return seatSet.Single();
+        }
+
         private int GetSeatId(string instructions)
         {
             var rowInstructions = instructions
@@ -33,9 +69,7 @@ namespace Solutions
                 .Select(c => c == 'R');
 
             var column = BinarySearch(7, columnInstructions);
-
-            WriteLine($"{instructions}, {row}, {column} {row * 8 + column}");
-
+            
             return row * 8 + column;
         }
 
